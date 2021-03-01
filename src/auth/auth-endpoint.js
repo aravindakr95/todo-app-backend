@@ -2,8 +2,9 @@ import HttpResponseType from '../enums/http/http-response-type';
 
 import { objectHandler } from '../helpers/utilities/normalize-request';
 import { CustomException } from '../helpers/utilities/custom-exception';
+
+import { encryptField, compareField } from '../helpers/auth/encryption-handler';
 import signAuthToken from '../helpers/auth/token-handler';
-import encryptField from '../helpers/auth/encryption-handler';
 
 export default function makeAuthEndPointHandler({ authList }) {
   async function registerUser(httpRequest) {
@@ -34,10 +35,48 @@ export default function makeAuthEndPointHandler({ authList }) {
     }
   }
 
+  async function loginUser(httpRequest) {
+    let isValidPw = false;
+    const { email, password } = httpRequest.body;
+
+    try {
+      const user = await authList.findUserByEmail({ email }).catch((error) => {
+        throw CustomException(error.message);
+      });
+
+      if (user) {
+        isValidPw = await compareField({
+          password,
+          hash: user.password,
+        });
+      }
+
+      if (isValidPw) {
+        const { deviceToken } = user;
+
+        return objectHandler({
+          status: HttpResponseType.SUCCESS,
+          data: { accessToken: deviceToken },
+          message: `User '${email}' authentication successful`,
+        });
+      }
+
+      throw CustomException(
+        'Invalid email or password',
+        HttpResponseType.AUTH_REQUIRED,
+      );
+    } catch (error) {
+      const { code, message } = error;
+      return objectHandler({ code, message });
+    }
+  }
+
   return async function handle(httpRequest) {
     switch (httpRequest.path) {
       case '/register':
         return registerUser(httpRequest);
+      case '/login':
+        return loginUser(httpRequest);
       default:
         return objectHandler({
           code: HttpResponseType.METHOD_NOT_ALLOWED,

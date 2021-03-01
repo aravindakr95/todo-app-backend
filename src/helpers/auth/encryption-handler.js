@@ -1,5 +1,7 @@
-import { hashSync } from 'bcrypt';
+import bcrypt, { hashSync } from 'bcrypt';
 
-export default function encryptField(field) {
-  return hashSync(field, 10);
-}
+const encryptField = (field) => hashSync(field, 10);
+
+const compareField = ({ password, hash }) => bcrypt.compare(password, hash);
+
+module.exports = { encryptField, compareField };

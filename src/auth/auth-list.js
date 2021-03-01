@@ -5,7 +5,12 @@ export default function makeAuthList() {
     return new User(data).save();
   }
 
+  function findUserByEmail(email) {
+    return User.findOne(email);
+  }
+
   return Object.freeze({
     addUser,
+    findUserByEmail,
   });
 }

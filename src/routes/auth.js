@@ -8,4 +8,8 @@ authRouter.post('/register', (req, res) => {
   authController(req, res);
 });
 
+authRouter.post('/login', (req, res) => {
+  authController(req, res);
+});
+
 module.exports = authRouter;
