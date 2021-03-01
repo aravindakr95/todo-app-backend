@@ -37,6 +37,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.18",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {

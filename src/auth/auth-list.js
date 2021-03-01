@@ -1,9 +1,11 @@
+import User from '../models/auth/user';
+
 export default function makeAuthList() {
-    return Object.freeze({
-        addUser
-    });
+  function addUser(data) {
+    return new User(data).save();
+  }
 
-    function addUser({ data }) {
-
-    }
+  return Object.freeze({
+    addUser,
+  });
 }
