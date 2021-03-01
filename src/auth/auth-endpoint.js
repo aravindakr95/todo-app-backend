@@ -1,15 +1,16 @@
 import HttpResponseType from '../enums/http/http-response-type';
 
 import { objectHandler } from '../helpers/utilities/normalize-request';
+import { CustomException } from '../helpers/utilities/custom-exception';
 import signAuthToken from '../helpers/auth/token-handler';
 import encryptField from '../helpers/auth/encryption-handler';
 
 export default function makeAuthEndPointHandler({ authList }) {
-  async function registerConsumer(httpRequest) {
+  async function registerUser(httpRequest) {
     const { email, password } = httpRequest.body;
     try {
       const deviceToken = await signAuthToken(httpRequest.body).catch((error) => {
-        throw error.message;
+        throw CustomException(error.message);
       });
 
       const updatedProps = {
@@ -20,7 +21,7 @@ export default function makeAuthEndPointHandler({ authList }) {
       const userObj = { ...updatedProps, email };
 
       await authList.addUser(userObj).catch((error) => {
-        throw error.message;
+        throw CustomException(error.message);
       });
 
       return objectHandler({
@@ -36,7 +37,7 @@ export default function makeAuthEndPointHandler({ authList }) {
   return async function handle(httpRequest) {
     switch (httpRequest.path) {
       case '/register':
-        return registerConsumer(httpRequest);
+        return registerUser(httpRequest);
       default:
         return objectHandler({
           code: HttpResponseType.METHOD_NOT_ALLOWED,
