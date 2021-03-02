@@ -64,7 +64,7 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
           throw CustomException(error.message);
         });
 
-      if (!data) {
+      if (data && data.nModified < 1) {
         throw CustomException(
           `Requested Todo '${todoId}' is not found`,
           HttpResponseType.NOT_FOUND,
@@ -75,6 +75,33 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
         data,
         status: HttpResponseType.SUCCESS,
         message: `Todo '${todoId}' updated successful`,
+      });
+    } catch (error) {
+      const { code, message } = error;
+      return objectHandler({ code, message });
+    }
+  }
+
+  async function removeTodo(httpRequest) {
+    try {
+      const { todoId } = httpRequest.pathParams;
+
+      const data = await todoList.removeTodoById({ _id: todoId })
+        .catch((error) => {
+          throw CustomException(error.message);
+        });
+
+      if (data && data.deletedCount < 1) {
+        throw CustomException(
+          `Requested Todo '${todoId}' is not found`,
+          HttpResponseType.NOT_FOUND,
+        );
+      }
+
+      return objectHandler({
+        data,
+        status: HttpResponseType.SUCCESS,
+        message: `Todo '${todoId}' removed successful`,
       });
     } catch (error) {
       const { code, message } = error;
@@ -93,6 +120,10 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
       case 'PUT':
         return (httpRequest.pathParams.todoId)
           ? updateTodo(httpRequest)
+          : defaultRouteHandler();
+      case 'DELETE':
+        return (httpRequest.pathParams.todoId)
+          ? removeTodo(httpRequest)
           : defaultRouteHandler();
       default:
         return defaultRouteHandler();

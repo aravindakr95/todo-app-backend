@@ -16,4 +16,8 @@ todoRouter.put('/:todoId', (req, res) => {
   todoController(req, res);
 });
 
+todoRouter.delete('/:todoId', (req, res) => {
+  todoController(req, res);
+});
+
 module.exports = todoRouter;
