@@ -1,8 +1,14 @@
-import { sign } from 'jsonwebtoken';
+import { sign, decode } from 'jsonwebtoken';
 
-export default async function signAuthToken({ email, accountNumber }) {
+async function signAuthToken({ userId }) {
   return sign({
-    email,
-    accountNumber,
+    userId,
   }, 'b7ihxwjg4h07n629jad6j1ln06');
 }
+
+async function decodeAuthToken(token) {
+  const { userId } = decode(token);
+  return userId;
+}
+
+module.exports = { signAuthToken, decodeAuthToken };

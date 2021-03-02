@@ -7,6 +7,10 @@ const userSchema = new UserSchema({
     type: Number,
     default: Date.now,
   },
+  fullName: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -17,10 +21,6 @@ const userSchema = new UserSchema({
     type: String,
     required: true,
     minlength: 8,
-  },
-  deviceToken: {
-    type: String,
-    required: true,
   },
 });
 

@@ -5,7 +5,12 @@ export default function makeTodoList() {
     return new Todo(data).save();
   }
 
+  function findTodosByUserId(data) {
+    return Todo.find(data);
+  }
+
   return Object.freeze({
     insertTodo,
+    findTodosByUserId,
   });
 }

@@ -7,10 +7,9 @@ const todoSchema = new TodoSchema({
     type: Number,
     default: Date.now,
   },
-  email: {
+  userId: {
     type: String,
     required: true,
-    lowercase: true,
   },
   title: {
     type: String,

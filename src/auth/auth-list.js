@@ -9,8 +9,13 @@ export default function makeAuthList() {
     return User.findOne(email);
   }
 
+  function findUserById(userId) {
+    return User.findOne(userId);
+  }
+
   return Object.freeze({
     insertUser,
     findUserByEmail,
+    findUserById,
   });
 }

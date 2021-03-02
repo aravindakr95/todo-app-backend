@@ -8,4 +8,8 @@ todoRouter.post('/add', (req, res) => {
   todoController(req, res);
 });
 
+todoRouter.get('/:userId', (req, res) => {
+  todoController(req, res);
+});
+
 module.exports = todoRouter;

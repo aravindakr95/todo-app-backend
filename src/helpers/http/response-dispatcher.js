@@ -5,7 +5,7 @@ const successResponse = (res, obj) => {
   const { status, message, data } = obj;
   const payload = {
     status,
-    message,
+    message: message || '',
     data: data || null,
   };
   return res

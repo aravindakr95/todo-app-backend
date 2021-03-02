@@ -4,22 +4,17 @@ import { objectHandler } from '../helpers/utilities/normalize-request';
 import { CustomException } from '../helpers/utilities/custom-exception';
 
 import { encryptField, compareField } from '../helpers/auth/encryption-handler';
-import signAuthToken from '../helpers/auth/token-handler';
+import { signAuthToken } from '../helpers/auth/token-handler';
 
 export default function makeAuthEndPointHandler({ authList }) {
   async function registerUser(httpRequest) {
-    const { email, password } = httpRequest.body;
+    const { fullName, email, password } = httpRequest.body;
     try {
-      const deviceToken = await signAuthToken(httpRequest.body).catch((error) => {
-        throw CustomException(error.message);
-      });
-
       const updatedProps = {
-        deviceToken,
         password: encryptField(password),
       };
 
-      const userObj = { ...updatedProps, email };
+      const userObj = { ...updatedProps, email, fullName };
 
       await authList.insertUser(userObj).catch((error) => {
         throw CustomException(error.message);
@@ -52,12 +47,15 @@ export default function makeAuthEndPointHandler({ authList }) {
       }
 
       if (isValidPw) {
-        const { deviceToken } = user;
+        const { _id: userId } = user;
+        const authToken = await signAuthToken({ userId }).catch((error) => {
+          throw CustomException(error.message);
+        });
 
         return objectHandler({
           status: HttpResponseType.SUCCESS,
-          data: { accessToken: deviceToken },
-          message: `User '${email}' authentication successful`,
+          data: { authToken },
+          message: `User '${userId}' authentication successful`,
         });
       }
 
