@@ -3,6 +3,7 @@ import HttpResponseType from '../enums/http/http-response-type';
 import { objectHandler } from '../helpers/utilities/normalize-request';
 import { CustomException } from '../helpers/utilities/custom-exception';
 import { defaultRouteHandler } from '../helpers/http/default-route-handler';
+import HttpMethod from '../enums/http/http-method';
 
 export default function makeAuthEndPointHandler({ todoList, authList }) {
   async function addTodo(httpRequest) {
@@ -130,9 +131,9 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
 
   return async function handle(httpRequest) {
     switch (httpRequest.method) {
-      case 'POST':
+      case HttpMethod.POST:
         return addTodo(httpRequest);
-      case 'GET':
+      case HttpMethod.GET:
         if (httpRequest.queryParams.userId && httpRequest.queryParams.status) {
           return getTodosByStatus(httpRequest);
         }
@@ -140,11 +141,11 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
           return getAllTodos(httpRequest);
         }
         return defaultRouteHandler();
-      case 'PUT':
+      case HttpMethod.PUT:
         return (httpRequest.pathParams.todoId)
           ? updateTodo(httpRequest)
           : defaultRouteHandler();
-      case 'DELETE':
+      case HttpMethod.DELETE:
         return (httpRequest.pathParams.todoId)
           ? removeTodo(httpRequest)
           : defaultRouteHandler();
