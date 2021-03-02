@@ -8,7 +8,11 @@ todoRouter.post('/add', (req, res) => {
   todoController(req, res);
 });
 
-todoRouter.get('/:userId', (req, res) => {
+todoRouter.get('/', (req, res) => {
+  todoController(req, res);
+});
+
+todoRouter.put('/:todoId', (req, res) => {
   todoController(req, res);
 });
 

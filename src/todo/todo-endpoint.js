@@ -37,21 +37,45 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
 
   async function getTodos(httpRequest) {
     try {
-      const { userId } = httpRequest.pathParams;
-      const { status } = httpRequest.queryParams;
+      const { userId, status } = httpRequest.queryParams;
 
-      const result = await todoList.findTodosByUserId({ userId, status });
-
-      if (result && result.length) {
-        return objectHandler({
-          status: HttpResponseType.SUCCESS,
-          data: result,
+      const result = await todoList.findTodosByUserId({ userId, status })
+        .catch((error) => {
+          throw CustomException(error.message);
         });
+
+      return objectHandler({
+        status: HttpResponseType.SUCCESS,
+        data: result,
+      });
+    } catch (error) {
+      const { code, message } = error;
+      return objectHandler({ code, message });
+    }
+  }
+
+  async function updateTodo(httpRequest) {
+    try {
+      const { body } = httpRequest;
+      const { todoId } = httpRequest.pathParams;
+
+      const data = await todoList.updateTodoById({ _id: todoId }, body)
+        .catch((error) => {
+          throw CustomException(error.message);
+        });
+
+      if (!data) {
+        throw CustomException(
+          `Requested Todo '${todoId}' is not found`,
+          HttpResponseType.NOT_FOUND,
+        );
       }
-      throw CustomException(
-        `Todos not found for user '${httpRequest.pathParams.userId}'`,
-        HttpResponseType.NOT_FOUND,
-      );
+
+      return objectHandler({
+        data,
+        status: HttpResponseType.SUCCESS,
+        message: `Todo '${todoId}' updated successful`,
+      });
     } catch (error) {
       const { code, message } = error;
       return objectHandler({ code, message });
@@ -63,8 +87,12 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
       case 'POST':
         return addTodo(httpRequest);
       case 'GET':
-        return (httpRequest.pathParams.userId && httpRequest.queryParams.status)
+        return (httpRequest.queryParams.userId && httpRequest.queryParams.status)
           ? getTodos(httpRequest)
+          : defaultRouteHandler();
+      case 'PUT':
+        return (httpRequest.pathParams.todoId)
+          ? updateTodo(httpRequest)
           : defaultRouteHandler();
       default:
         return defaultRouteHandler();
