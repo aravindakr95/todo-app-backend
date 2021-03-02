@@ -5,7 +5,7 @@ const UserSchema = Schema;
 const userSchema = new UserSchema({
   timestamp: {
     type: Number,
-    default: Date.now(),
+    default: Date.now,
   },
   email: {
     type: String,

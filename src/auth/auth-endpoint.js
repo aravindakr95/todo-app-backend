@@ -21,7 +21,7 @@ export default function makeAuthEndPointHandler({ authList }) {
 
       const userObj = { ...updatedProps, email };
 
-      await authList.addUser(userObj).catch((error) => {
+      await authList.insertUser(userObj).catch((error) => {
         throw CustomException(error.message);
       });
 

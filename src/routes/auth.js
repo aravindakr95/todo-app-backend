@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import express from 'express';
 
 import authController from '../auth/auth-controller';
 
-const authRouter = Router();
+const authRouter = express.Router();
 
 authRouter.post('/register', (req, res) => {
   authController(req, res);

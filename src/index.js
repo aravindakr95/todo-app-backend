@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import authRouter from './routes/auth';
+import todoRouter from './routes/todo';
 
 import HttpResponseType from './enums/http/http-response-type';
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 initializeDB();
 
 app.use('/v1/app/auth', authRouter);
+app.use('/v1/app/todos', todoRouter);
 
 app.all('*',
   (req, res) => errorResponse(res, {

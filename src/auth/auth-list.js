@@ -1,7 +1,7 @@
 import User from '../models/auth/user';
 
 export default function makeAuthList() {
-  function addUser(data) {
+  function insertUser(data) {
     return new User(data).save();
   }
 
@@ -10,7 +10,7 @@ export default function makeAuthList() {
   }
 
   return Object.freeze({
-    addUser,
+    insertUser,
     findUserByEmail,
   });
 }
