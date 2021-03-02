@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
+import config from './configs/config';
+
 import authRouter from './routes/auth';
 import todoRouter from './routes/todo';
 
@@ -24,6 +26,6 @@ app.all('*',
     message: 'Request URL not found',
   }));
 
-app.listen(3000, () => {
+app.listen(config.deployment.port, () => {
   console.log('Server is up and running');
 });

@@ -1,7 +1,9 @@
-import bcrypt, { hashSync } from 'bcrypt';
+import { hashSync, compare } from 'bcrypt';
 
-const encryptField = (field) => hashSync(field, 10);
+import config from '../../configs/config';
 
-const compareField = ({ password, hash }) => bcrypt.compare(password, hash);
+const encryptField = (field) => hashSync(field, config.authentication.saltRounds);
+
+const compareField = ({ password, hash }) => compare(password, hash);
 
 module.exports = { encryptField, compareField };

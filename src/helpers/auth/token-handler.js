@@ -1,13 +1,14 @@
 import { sign, verify, decode } from 'jsonwebtoken';
+import config from '../../configs/config';
 
 function signAuthToken({ userId }) {
   return sign({
     userId,
-  }, 'b7ihxwjg4h07n629jad6j1ln06');
+  }, config.authentication.jwtSecret);
 }
 
 function verifyAuthToken(token) {
-  return verify(token, 'b7ihxwjg4h07n629jad6j1ln06',
+  return verify(token, config.authentication.jwtSecret,
     (error, user) => error || user);
 }
 
