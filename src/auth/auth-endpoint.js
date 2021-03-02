@@ -8,8 +8,20 @@ import { signAuthToken } from '../helpers/auth/token-handler';
 
 export default function makeAuthEndPointHandler({ authList }) {
   async function registerUser(httpRequest) {
-    const { fullName, email, password } = httpRequest.body;
     try {
+      const { fullName, email, password } = httpRequest.body;
+
+      const existCount = await authList.findUserIsExists({ email }).catch((error) => {
+        throw CustomException(error.message);
+      });
+
+      if (existCount > 0) {
+        throw CustomException(
+          `User email '${email}' is already exists`,
+          HttpResponseType.CONFLICT,
+        );
+      }
+
       const updatedProps = {
         password: encryptField(password),
       };

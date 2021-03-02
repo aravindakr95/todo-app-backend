@@ -6,6 +6,7 @@ export default function normalizeRequest(req = {}) {
     pathParams: req.params,
     queryParams: req.query,
     body: req.body,
+    instance: req.user,
   });
 }
 

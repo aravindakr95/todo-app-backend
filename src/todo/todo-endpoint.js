@@ -1,15 +1,15 @@
 import HttpResponseType from '../enums/http/http-response-type';
+import HttpMethod from '../enums/http/http-method';
 
 import { objectHandler } from '../helpers/utilities/normalize-request';
 import { CustomException } from '../helpers/utilities/custom-exception';
 import { defaultRouteHandler } from '../helpers/http/default-route-handler';
-import HttpMethod from '../enums/http/http-method';
 
 export default function makeAuthEndPointHandler({ todoList, authList }) {
   async function addTodo(httpRequest) {
     try {
       const { body } = httpRequest;
-      const { userId } = body;
+      const { userId } = httpRequest.instance;
 
       const user = await authList.findUserById({ _id: userId }).catch((error) => {
         throw CustomException(error.message);
@@ -22,7 +22,7 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
         );
       }
 
-      await todoList.insertTodo(body).catch((error) => {
+      await todoList.insertTodo({ ...body, userId }).catch((error) => {
         throw CustomException(error.message);
       });
 
@@ -58,6 +58,7 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
   async function getAllTodos(httpRequest) {
     try {
       const { userId } = httpRequest.queryParams;
+      console.log(httpRequest.instance);
 
       const result = await todoList.findTodosByUserId({ userId })
         .catch((error) => {

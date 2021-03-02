@@ -16,7 +16,7 @@ function fieldStateChecker(req, res, next) {
   errors.array().map((error) => extractedErrors.push(error.msg));
 
   return errorResponse(res, {
-    code: HttpResponseType.UNPROCESSABLE_ENTITY,
+    code: HttpResponseType.BAD_REQUEST,
     message: extractedErrors.join(', '),
   });
 }
@@ -58,10 +58,6 @@ function todosValidator(method) {
   switch (method) {
     case HttpMethod.POST:
       return [
-        body('userId')
-          .exists().withMessage('User ID is required')
-          .isMongoId()
-          .withMessage('User ID should be Mongo ID'),
         body('title')
           .exists().withMessage('Title is required')
           .isString()
@@ -73,10 +69,6 @@ function todosValidator(method) {
       ];
     case HttpMethod.PUT:
       return [
-        body('userId')
-          .optional()
-          .isMongoId()
-          .withMessage('User ID should be Mongo ID'),
         body('title')
           .optional()
           .isString()

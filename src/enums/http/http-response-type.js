@@ -1,6 +1,6 @@
 const HttpResponseType = Object.freeze({
   SUCCESS: 200,
-  CLIENT_ERROR: 400,
+  BAD_REQUEST: 400,
   AUTH_REQUIRED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,

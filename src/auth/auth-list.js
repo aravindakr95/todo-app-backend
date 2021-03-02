@@ -13,9 +13,14 @@ export default function makeAuthList() {
     return User.findOne(userId);
   }
 
+  function findUserIsExists(email) {
+    return User.countDocuments(email);
+  }
+
   return Object.freeze({
     insertUser,
     findUserByEmail,
     findUserById,
+    findUserIsExists,
   });
 }

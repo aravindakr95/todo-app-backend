@@ -17,8 +17,8 @@ app.use(bodyParser.json());
 
 initializeDB();
 
-app.use('/v1/app/auth', authRouter);
-app.use('/v1/app/todos', todoRouter);
+app.use('/v1/api/auth', authRouter);
+app.use('/v1/api/todos', todoRouter);
 
 app.all('*',
   (req, res) => errorResponse(res, {
