@@ -35,11 +35,30 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
     }
   }
 
-  async function getTodos(httpRequest) {
+  async function getTodosByStatus(httpRequest) {
     try {
       const { userId, status } = httpRequest.queryParams;
 
       const result = await todoList.findTodosByUserId({ userId, status })
+        .catch((error) => {
+          throw CustomException(error.message);
+        });
+
+      return objectHandler({
+        status: HttpResponseType.SUCCESS,
+        data: result,
+      });
+    } catch (error) {
+      const { code, message } = error;
+      return objectHandler({ code, message });
+    }
+  }
+
+  async function getAllTodos(httpRequest) {
+    try {
+      const { userId } = httpRequest.queryParams;
+
+      const result = await todoList.findTodosByUserId({ userId })
         .catch((error) => {
           throw CustomException(error.message);
         });
@@ -114,9 +133,13 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
       case 'POST':
         return addTodo(httpRequest);
       case 'GET':
-        return (httpRequest.queryParams.userId && httpRequest.queryParams.status)
-          ? getTodos(httpRequest)
-          : defaultRouteHandler();
+        if (httpRequest.queryParams.userId && httpRequest.queryParams.status) {
+          return getTodosByStatus(httpRequest);
+        }
+        if (httpRequest.queryParams.userId) {
+          return getAllTodos(httpRequest);
+        }
+        return defaultRouteHandler();
       case 'PUT':
         return (httpRequest.pathParams.todoId)
           ? updateTodo(httpRequest)
