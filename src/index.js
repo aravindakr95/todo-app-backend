@@ -10,8 +10,8 @@ import todoRouter from './routes/todo';
 
 import HttpResponseType from './enums/http/http-response-type';
 
-import { errorResponse } from './helpers/http/response-dispatcher';
 import initializeDB from './helpers/storage/database-handler';
+import { errorResponse } from './helpers/http/response-dispatcher';
 
 const app = express();
 
@@ -30,5 +30,5 @@ app.all('*',
   }));
 
 app.listen(config.deployment.port, () => {
-  console.log('Server is up and running');
+  loglevel.info('Server is up and running');
 });
