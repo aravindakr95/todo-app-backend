@@ -7,6 +7,7 @@ import loglevel from './configs/log-level';
 
 import authRouter from './routes/auth';
 import todoRouter from './routes/todo';
+import apiDocsRouter from './routes/api-docs';
 
 import HttpResponseType from './enums/http/http-response-type';
 
@@ -22,6 +23,8 @@ initializeDB();
 
 app.use('/v1/api/auth', authRouter);
 app.use('/v1/api/todos', todoRouter);
+
+app.use('/api-docs', apiDocsRouter);
 
 app.all('*',
   (req, res) => errorResponse(res, {
