@@ -1,5 +1,7 @@
 import HttpResponseType from '../enums/http/http-response-type';
 
+import loglevel from '../configs/log-level';
+
 import { objectHandler } from '../helpers/utilities/normalize-request';
 import { CustomException } from '../helpers/utilities/custom-exception';
 
@@ -8,6 +10,7 @@ import { signAuthToken } from '../helpers/auth/token-handler';
 
 export default function makeAuthEndPointHandler({ authList }) {
   async function registerUser(httpRequest) {
+    loglevel.info('[auth][registerUser]: Start');
     try {
       const { fullName, email, password } = httpRequest.body;
 
@@ -32,21 +35,27 @@ export default function makeAuthEndPointHandler({ authList }) {
         throw CustomException(error.message);
       });
 
+      loglevel.info('[auth][registerUser]: Finish');
+
       return objectHandler({
         status: HttpResponseType.SUCCESS,
         message: `User account '${email}' created successful`,
       });
     } catch (error) {
       const { code, message } = error;
+
+      loglevel.error(message);
+      loglevel.info('[auth][registerUser]: Finish');
       return objectHandler({ code, message });
     }
   }
 
   async function loginUser(httpRequest) {
+    loglevel.info('[auth][loginUser]: Start');
     let isValidPw = false;
-    const { email, password } = httpRequest.body;
 
     try {
+      const { email, password } = httpRequest.body;
       const user = await authList.findUserByEmail({ email }).catch((error) => {
         throw CustomException(error.message);
       });
@@ -75,6 +84,9 @@ export default function makeAuthEndPointHandler({ authList }) {
       );
     } catch (error) {
       const { code, message } = error;
+
+      loglevel.error(message);
+      loglevel.info('[auth][loginUser]: Finish');
       return objectHandler({ code, message });
     }
   }

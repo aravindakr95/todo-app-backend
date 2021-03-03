@@ -4,9 +4,8 @@
   "description": "Demonstration of Todo application behavior by using Restful APIs",
   "main": "dist/index.js",
   "scripts": {
-    "prestart": "npm run -s build",
     "start": "npm run build && node dist/index.js",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && rimraf logs",
     "lint": "eslint --fix --config .eslintrc.json \"src/**/*.js\"",
     "build": "npm run clean && babel src -s -D -d dist",
     "watch": "nodemon -e js --watch src --exec \"npm run start\""
@@ -33,6 +32,7 @@
   },
   "homepage": "https://github.com/aravindakr95/todo-app-backend#readme",
   "dependencies": {
+    "app-root-path": "^3.0.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -40,20 +40,24 @@
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.18",
+    "morgan": "^1.10.0",
     "rimraf": "^3.0.2",
     "swagger-jsdoc": "^7.0.0-rc.4",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "nodemon": "^2.0.7"
   },
   "engines": {
-    "node": "14.16.0"
+    "node": "13.1.0"
   }
 }

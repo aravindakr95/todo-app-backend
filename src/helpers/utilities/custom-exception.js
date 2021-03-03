@@ -5,6 +5,4 @@ function CustomException(message, code = 500) {
   return error;
 }
 
-CustomException.prototype = Object.create(Error.prototype);
-
 module.exports = { CustomException };

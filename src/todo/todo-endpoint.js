@@ -1,12 +1,15 @@
 import HttpResponseType from '../enums/http/http-response-type';
 import HttpMethod from '../enums/http/http-method';
 
+import loglevel from '../configs/log-level';
+
 import { objectHandler } from '../helpers/utilities/normalize-request';
 import { CustomException } from '../helpers/utilities/custom-exception';
 import { defaultRouteHandler } from '../helpers/http/default-route-handler';
 
 export default function makeAuthEndPointHandler({ todoList, authList }) {
   async function addTodo(httpRequest) {
+    loglevel.info('[todo][addTodo]: Start');
     try {
       const { body } = httpRequest;
       const { userId } = httpRequest.instance;
@@ -26,17 +29,22 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
         throw CustomException(error.message);
       });
 
+      loglevel.info('[todo][addTodo]: Finish');
+
       return objectHandler({
         status: HttpResponseType.SUCCESS,
         message: `Todo created by '${userId}' was successful`,
       });
     } catch (error) {
       const { code, message } = error;
+
+      loglevel.error('[todo][addTodo]: Finish');
       return objectHandler({ code, message });
     }
   }
 
   async function getTodosByStatus(httpRequest) {
+    loglevel.info('[todo][getTodosByStatus]: Start');
     try {
       const { userId, status } = httpRequest.queryParams;
 
@@ -45,37 +53,48 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
           throw CustomException(error.message);
         });
 
+      loglevel.info('[todo][getTodosByStatus]: Finish');
+
       return objectHandler({
         status: HttpResponseType.SUCCESS,
         data: result,
       });
     } catch (error) {
       const { code, message } = error;
+
+      loglevel.error(message);
+      loglevel.info('[todo][getTodosByStatus]: Finish');
       return objectHandler({ code, message });
     }
   }
 
   async function getAllTodos(httpRequest) {
+    loglevel.info('[todo][getAllTodos]: Start');
     try {
       const { userId } = httpRequest.queryParams;
-      console.log(httpRequest.instance);
 
       const result = await todoList.findTodosByUserId({ userId })
         .catch((error) => {
           throw CustomException(error.message);
         });
 
+      loglevel.info('[todo][getAllTodos]: Finish');
+
       return objectHandler({
         status: HttpResponseType.SUCCESS,
         data: result,
       });
     } catch (error) {
       const { code, message } = error;
+
+      loglevel.error(message);
+      loglevel.info('[todo][getAllTodos]: Finish');
       return objectHandler({ code, message });
     }
   }
 
   async function updateTodo(httpRequest) {
+    loglevel.info('[todo][updateTodo]: Start');
     try {
       const { body } = httpRequest;
       const { todoId } = httpRequest.pathParams;
@@ -92,6 +111,8 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
         );
       }
 
+      loglevel.info('[todo][updateTodo]: Finish');
+
       return objectHandler({
         data,
         status: HttpResponseType.SUCCESS,
@@ -99,11 +120,15 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
       });
     } catch (error) {
       const { code, message } = error;
+
+      loglevel.error(message);
+      loglevel.info('[todo][updateTodo]: Finish');
       return objectHandler({ code, message });
     }
   }
 
   async function removeTodo(httpRequest) {
+    loglevel.info('[todo][removeTodo]: Start');
     try {
       const { todoId } = httpRequest.pathParams;
 
@@ -119,6 +144,7 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
         );
       }
 
+      loglevel.info('[todo][removeTodo]: Finish');
       return objectHandler({
         data,
         status: HttpResponseType.SUCCESS,
@@ -126,6 +152,9 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
       });
     } catch (error) {
       const { code, message } = error;
+
+      loglevel.error(message);
+      loglevel.info('[todo][removeTodo]: Finish');
       return objectHandler({ code, message });
     }
   }
@@ -143,12 +172,10 @@ export default function makeAuthEndPointHandler({ todoList, authList }) {
         }
         return defaultRouteHandler();
       case HttpMethod.PUT:
-        return (httpRequest.pathParams.todoId)
-          ? updateTodo(httpRequest)
+        return (httpRequest.pathParams.todoId) ? updateTodo(httpRequest)
           : defaultRouteHandler();
       case HttpMethod.DELETE:
-        return (httpRequest.pathParams.todoId)
-          ? removeTodo(httpRequest)
+        return (httpRequest.pathParams.todoId) ? removeTodo(httpRequest)
           : defaultRouteHandler();
       default:
         return defaultRouteHandler();

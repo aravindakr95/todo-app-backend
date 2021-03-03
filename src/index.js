@@ -1,7 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
 import config from './configs/config';
+import loglevel from './configs/log-level';
 
 import authRouter from './routes/auth';
 import todoRouter from './routes/todo';
@@ -14,6 +16,7 @@ import initializeDB from './helpers/storage/database-handler';
 const app = express();
 
 app.use(bodyParser.json());
+app.use(morgan('combined', { stream: loglevel.stream }));
 
 initializeDB();
 
