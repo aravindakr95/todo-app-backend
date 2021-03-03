@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
@@ -15,6 +16,7 @@ import { errorResponse } from './helpers/http/response-dispatcher';
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('combined', { stream: loglevel.stream }));
 
