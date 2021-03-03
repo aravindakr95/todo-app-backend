@@ -6,4 +6,4 @@ const encryptField = (field) => hashSync(field, config.authentication.saltRounds
 
 const compareField = ({ password, hash }) => compare(password, hash);
 
-module.exports = { encryptField, compareField };
+export { encryptField, compareField };

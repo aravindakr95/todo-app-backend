@@ -20,4 +20,4 @@ authRouter.post('/login',
     authController(req, res);
   });
 
-module.exports = authRouter;
+export default authRouter;

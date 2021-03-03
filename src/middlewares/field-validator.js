@@ -94,4 +94,4 @@ function validate(main, route, method) {
   }
 }
 
-module.exports = { validate, fieldStateChecker };
+export { validate, fieldStateChecker };

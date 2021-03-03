@@ -53,4 +53,4 @@ if (config.environment !== EnvironmentType.PRODUCTION) {
   }));
 }
 
-module.exports = loglevel;
+export default loglevel;

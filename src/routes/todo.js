@@ -33,4 +33,4 @@ todoRouter.delete('/:todoId', (req, res) => {
   todoController(req, res);
 });
 
-module.exports = todoRouter;
+export default todoRouter;

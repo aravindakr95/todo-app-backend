@@ -6,4 +6,4 @@ const defaultRouteHandler = () => objectHandler({
   message: 'Request path or method not allowed',
 });
 
-module.exports = { defaultRouteHandler };
+export default defaultRouteHandler;

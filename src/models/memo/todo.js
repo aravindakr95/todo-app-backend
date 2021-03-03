@@ -29,4 +29,4 @@ const todoSchema = new TodoSchema({
 
 const Todo = model('Todo', todoSchema, 'todos');
 
-module.exports = Todo;
+export default Todo;

@@ -1,11 +1,10 @@
+import loglevel from '../configs/log-level';
+
 import HttpResponseType from '../enums/http/http-response-type';
 
 import makeAuthList from '../auth/auth-list';
 
-import loglevel from '../configs/log-level';
-
 import { errorResponse } from '../helpers/http/response-dispatcher';
-
 import { verifyAuthToken, decodeAuthToken } from '../helpers/auth/token-handler';
 
 async function validateProfile(userId) {

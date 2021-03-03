@@ -17,4 +17,4 @@ function decodeAuthToken(token) {
   return userId;
 }
 
-module.exports = { signAuthToken, verifyAuthToken, decodeAuthToken };
+export { signAuthToken, verifyAuthToken, decodeAuthToken };

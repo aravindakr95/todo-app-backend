@@ -29,4 +29,4 @@ const errorResponse = (res, obj) => {
     .json(payload);
 };
 
-module.exports = { successResponse, errorResponse };
+export { successResponse, errorResponse };

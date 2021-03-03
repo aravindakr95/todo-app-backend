@@ -3,9 +3,9 @@ import HttpMethod from '../enums/http/http-method';
 
 import loglevel from '../configs/log-level';
 
-import { objectHandler } from '../helpers/utilities/normalize-request';
 import customException from '../helpers/utilities/custom-exception';
-import { defaultRouteHandler } from '../helpers/http/default-route-handler';
+import defaultRouteHandler from '../helpers/http/default-route-handler';
+import { objectHandler } from '../helpers/utilities/normalize-request';
 
 export default function makeAuthEndPointHandler({ todoList, authList }) {
   async function addTodo(httpRequest) {
