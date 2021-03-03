@@ -1,4 +1,4 @@
-import handleAuthRequest from './index';
+import authEndpointHandler from './index';
 
 import HttpResponseType from '../enums/http/http-response-type';
 
@@ -8,7 +8,7 @@ import normalizeRequest from '../helpers/utilities/normalize-request';
 export default function authController(req, res) {
   const httpRequest = normalizeRequest(req);
 
-  handleAuthRequest(httpRequest)
+  authEndpointHandler(httpRequest)
     .then(({ data }) => {
       if (data.status) {
         return successResponse(res, data);

@@ -8,7 +8,10 @@
     "clean": "rimraf dist && rimraf logs",
     "lint": "eslint --fix --config .eslintrc.json \"src/**/*.js\"",
     "build": "npm run clean && babel src -s -D -d dist",
-    "watch": "nodemon -e js --watch src --exec \"npm run start\""
+    "watch": "nodemon -e js --watch src --exec \"npm run start\"",
+    "test": "jest --config ./.jestrc.json",
+    "test:watch": "npm run test --watch",
+    "test:coverage": "npm run test --coverage"
   },
   "keywords": [
     "Todo Application",
@@ -52,10 +55,10 @@
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.7"
   },
   "engines": {

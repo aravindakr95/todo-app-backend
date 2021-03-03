@@ -16,11 +16,11 @@ import { errorResponse } from './helpers/http/response-dispatcher';
 
 const app = express();
 
+initializeDB();
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('combined', { stream: loglevel.stream }));
-
-initializeDB();
 
 app.use('/v1/api/auth', authRouter);
 app.use('/v1/api/todos', todoRouter);

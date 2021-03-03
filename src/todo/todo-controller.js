@@ -1,4 +1,4 @@
-import handleTodoRequest from './index';
+import todoEndpointHandler from './index';
 
 import HttpResponseType from '../enums/http/http-response-type';
 
@@ -8,7 +8,7 @@ import normalizeRequest from '../helpers/utilities/normalize-request';
 export default function todoController(req, res) {
   const httpRequest = normalizeRequest(req);
 
-  handleTodoRequest(httpRequest)
+  todoEndpointHandler(httpRequest)
     .then(({ data }) => {
       if (data.status) {
         return successResponse(res, data);
