@@ -2,8 +2,8 @@ import HttpResponseType from '../enums/http/http-response-type';
 
 import loglevel from '../configs/log-level';
 
+import customException from '../helpers/utilities/custom-exception';
 import { objectHandler } from '../helpers/utilities/normalize-request';
-import { CustomException } from '../helpers/utilities/custom-exception';
 
 import { encryptField, compareField } from '../helpers/auth/encryption-handler';
 import { signAuthToken } from '../helpers/auth/token-handler';
@@ -15,11 +15,11 @@ export default function makeAuthEndPointHandler({ authList }) {
       const { fullName, email, password } = httpRequest.body;
 
       const existCount = await authList.findUserIsExists({ email }).catch((error) => {
-        throw CustomException(error.message);
+        throw customException(error.message);
       });
 
       if (existCount > 0) {
-        throw CustomException(
+        throw customException(
           `User email '${email}' is already exists`,
           HttpResponseType.CONFLICT,
         );
@@ -32,7 +32,7 @@ export default function makeAuthEndPointHandler({ authList }) {
       const userObj = { ...updatedProps, email, fullName };
 
       await authList.insertUser(userObj).catch((error) => {
-        throw CustomException(error.message);
+        throw customException(error.message);
       });
 
       loglevel.info('[auth][registerUser]: Finish');
@@ -57,7 +57,7 @@ export default function makeAuthEndPointHandler({ authList }) {
     try {
       const { email, password } = httpRequest.body;
       const user = await authList.findUserByEmail({ email }).catch((error) => {
-        throw CustomException(error.message);
+        throw customException(error.message);
       });
 
       if (user) {
@@ -78,7 +78,7 @@ export default function makeAuthEndPointHandler({ authList }) {
         });
       }
 
-      throw CustomException(
+      throw customException(
         'Invalid email or password',
         HttpResponseType.AUTH_REQUIRED,
       );
