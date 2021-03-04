@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
@@ -11,15 +12,16 @@ import apiDocsRouter from './routes/api-docs';
 
 import HttpResponseType from './enums/http/http-response-type';
 
-import { errorResponse } from './helpers/http/response-dispatcher';
 import initializeDB from './helpers/storage/database-handler';
+import { errorResponse } from './helpers/http/response-dispatcher';
 
 const app = express();
 
+initializeDB();
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('combined', { stream: loglevel.stream }));
-
-initializeDB();
 
 app.use('/v1/api/auth', authRouter);
 app.use('/v1/api/todos', todoRouter);
@@ -33,5 +35,5 @@ app.all('*',
   }));
 
 app.listen(config.deployment.port, () => {
-  console.log('Server is up and running');
+  loglevel.info('Server is up and running');
 });

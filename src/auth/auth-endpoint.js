@@ -68,12 +68,12 @@ export default function makeAuthEndPointHandler({ authList }) {
       }
 
       if (isValidPw) {
-        const { _id: userId } = user;
+        const { _id: userId, fullName } = user;
         const authToken = await signAuthToken({ userId });
 
         return objectHandler({
           status: HttpResponseType.SUCCESS,
-          data: { authToken },
+          data: { userId, fullName, authToken },
           message: `User '${userId}' authentication successful`,
         });
       }
