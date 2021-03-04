@@ -1,18 +1,23 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 
-async function swaggerSpecification() {
-  const options = {
-    definition: {
-      info: {
-        title: 'API Documentation',
-        description: 'API Documentation for Todo Application',
-        version: '1.0.0',
-        apis: './src/routes*.js', // files containing annotations as above,
-      },
+import appRoot from 'app-root-path';
+import config from './configs/config';
+
+const swaggerDefinition = {
+  basePath: '/',
+  host: `${config.deployment.host}:${config.deployment.port}`,
+  definition: {
+    info: {
+      title: 'API Documentation',
+      description: 'API Documentation for Todo Application',
+      version: '1.0.0',
     },
-  };
+  },
+};
 
-  return swaggerJsdoc(options);
-}
+const options = {
+  swaggerDefinition,
+  apis: [`${appRoot}/src/routes/*.js`],
+};
 
-export default swaggerSpecification;
+export default swaggerJsdoc(options);
