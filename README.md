@@ -5,8 +5,8 @@
    <!-- START doctoc generated TOC please keep comment here to allow auto update -->
    <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Usage](#usage)
 - [System Diagram](#system-diagram)
+- [Usage](#usage)
 - [Getting started](#getting-started)
 - [Technologies](#technologies)
 - [How to use](#how-to-use)
@@ -14,15 +14,15 @@
 
    <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## :sparkles: System Diagram
+
+![rendering_architecture.png](./user-guides/images/system-diagram.png)
+
 ## :sparkles: Usage
 
 Proceed with next steps if your platform meet following prerequisites.
 
 - Install [Node.js](https://nodejs.org/en/) (14+ LTS) on your device.
-
-## :sparkles: System Diagram
-
-![rendering_architecture.png](./user-guides/images/system-diagram.png)
 
 ## :sparkles: Getting Started
 * Run the following commands under `todo-app-backend` directory to install dependencies.
