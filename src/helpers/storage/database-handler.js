@@ -11,7 +11,7 @@ export default function initializeDB() {
 
   if (config.environment === EnvironmentType.PRODUCTION) {
     uri = `mongodb+srv://${config.database.user}:${config.database.credentials}`
-        + `@se-tracking-engine.jw1zk.mongodb.net/${config.database.name}?retryWrites=true&w=majority`;
+        + `@${config.database.prodUri}/${config.database.name}?retryWrites=true&w=majority`;
   } else {
     uri = `${config.database.devUri}/${config.database.name}?retryWrites=true&w=majority`;
   }

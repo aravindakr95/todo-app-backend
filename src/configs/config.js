@@ -8,11 +8,11 @@ dotenv.config();
 
 const config = {
   version,
-  environment: EnvironmentType.DEVELOPMENT, // PRODUCTION, DEVELOPMENT
+  environment: EnvironmentType.PRODUCTION, // PRODUCTION, DEVELOPMENT
   database: {
-    prodUri: 'app-data.jw1zk.mongodb.net',
+    prodUri: 'todoappcluster.i2bqm.mongodb.net',
     devUri: 'mongodb://127.0.0.1:27017',
-    name: 'app-data',
+    name: 'todo-app',
     user: 'admin',
     credentials: process.env.DB_CREDENTIALS,
   },
@@ -21,7 +21,7 @@ const config = {
     saltRounds: 10,
   },
   deployment: {
-    host: '127.0.0.1',
+    host: '127.0.0.1', // DEMONSTRATION PURPOSES ONLY
     port: process.env.PORT || 3000,
   },
 };
