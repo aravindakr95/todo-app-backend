@@ -22,7 +22,7 @@ export default function initializeDB() {
     useCreateIndex: true,
     useFindAndModify: false,
   }).then(() => {
-    loglevel.info(`Connected to ${uri}`);
+    loglevel.info(`[storage][databaseHandler]: Connected to ${uri}`);
     loglevel.info('[storage][databaseHandler]: Finish');
   }).catch((error) => {
     loglevel.error(`Database starting error: ${error.message}`);

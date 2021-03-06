@@ -35,5 +35,5 @@ app.all('*',
   }));
 
 app.listen(config.deployment.port, () => {
-  loglevel.info('Server is up and running');
+  loglevel.info(`[index]: Server is up and running on ${config.deployment.port}`);
 });

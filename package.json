@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "npm run build && node dist/index.js",
-    "clean": "rimraf dist && rimraf logs",
+    "clean": "rimraf dist && rimraf logs && rimraf coverage",
     "lint": "eslint --fix --config .eslintrc.json \"src/**/*.js\"",
     "build": "npm run clean && babel src -s -D -d dist",
     "watch": "nodemon -e js --watch src --exec \"npm run start\"",
@@ -43,7 +43,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.18",
+    "mongoose": "^5.11.15",
     "morgan": "^1.10.0",
     "rimraf": "^3.0.2",
     "swagger-jsdoc": "^6.0.8",
