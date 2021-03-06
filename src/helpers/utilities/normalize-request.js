@@ -1,4 +1,4 @@
-export default function normalizeRequest(req = {}) {
+function normalizeRequest(req = {}) {
   return Object.freeze({
     host: req.hostname,
     path: req.path,
@@ -10,6 +10,8 @@ export default function normalizeRequest(req = {}) {
   });
 }
 
-export function objectHandler(data) {
+function objectHandler(data) {
   return { data };
 }
+
+export { normalizeRequest, objectHandler };

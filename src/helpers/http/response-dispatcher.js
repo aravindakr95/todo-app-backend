@@ -1,6 +1,6 @@
 import HttpResponseType from '../../enums/http/http-response-type';
 
-const successResponse = (res, obj) => {
+function successResponse(res, obj) {
   const headers = { 'Content-Type': 'application/json' };
   const { status, message, data } = obj;
   const payload = {
@@ -12,9 +12,9 @@ const successResponse = (res, obj) => {
     .set(headers)
     .status(HttpResponseType.SUCCESS)
     .json(payload);
-};
+}
 
-const errorResponse = (res, obj) => {
+function errorResponse(res, obj) {
   const headers = { 'Content-Type': 'application/json' };
   const { code, message } = obj;
   const payload = {
@@ -27,6 +27,6 @@ const errorResponse = (res, obj) => {
     .set(headers)
     .status(code)
     .json(payload);
-};
+}
 
 export { successResponse, errorResponse };

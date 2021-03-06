@@ -2,8 +2,12 @@ import { hashSync, compare } from 'bcrypt';
 
 import config from '../../configs/config';
 
-const encryptField = (field) => hashSync(field, config.authentication.saltRounds);
+function encryptField(field) {
+  return hashSync(field, config.authentication.saltRounds);
+}
 
-const compareField = ({ password, hash }) => compare(password, hash);
+function compareField({ password, hash }) {
+  return compare(password, hash);
+}
 
 export { encryptField, compareField };

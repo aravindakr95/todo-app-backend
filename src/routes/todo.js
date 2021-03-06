@@ -94,7 +94,7 @@ todoRouter.get('/',
  * /v1/api/todos/<todo_id>:
  *  put:
  *   summary: Update existing todo fields for specific user
- *   description: This route can be uses to update user specific todo with or without updating all the fields
+ *   description: Uses to update user specific todo with or without updating all the fields
  *   parameters:
  *    - in: header
  *      name: Authorization
@@ -161,8 +161,9 @@ todoRouter.put('/:todoId',
  *    500:
  *     description: Internal server error occurred
  */
-todoRouter.delete('/:todoId', (req, res) => {
-  todoController(req, res);
-});
+todoRouter.delete('/:todoId',
+  (req, res) => {
+    todoController(req, res);
+  });
 
 export default todoRouter;

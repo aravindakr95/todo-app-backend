@@ -3,7 +3,7 @@ import todoEndpointHandler from './index';
 import HttpResponseType from '../enums/http/http-response-type';
 
 import { successResponse, errorResponse } from '../helpers/http/response-dispatcher';
-import normalizeRequest from '../helpers/utilities/normalize-request';
+import { normalizeRequest } from '../helpers/utilities/normalize-request';
 
 export default function todoController(req, res) {
   const httpRequest = normalizeRequest(req);
