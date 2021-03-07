@@ -55,7 +55,7 @@ Run the following command on browsers with HTTPS to direct access to application
 ## :sparkles: API Documentation
 Run the following command on browsers to see API documentation.
  ```
- https://prod-todo.brliiant-apps.club/api-docs
+ https://prod-todo.brliiant-apps.club/api-docs/
  ```
 
 ## :sparkles: Technologies
