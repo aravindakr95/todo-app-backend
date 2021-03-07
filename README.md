@@ -6,12 +6,12 @@
    <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [System Diagram](#sparkles-system-diagram)
-- [Usage](#sparkles-usage)
+- [Prerequisites](#sparkles-prerequisites)
 - [Getting started](#sparkles-getting-started)
-- [Technologies](#sparkles-technologies)
 - [How to use](#sparkles-how-to-use)
-- [API Documentation](#sparkles-api-documentation)
 - [Deployment](#sparkles-deployment)
+- [API Documentation](#sparkles-api-documentation)
+- [Technologies](#sparkles-technologies)
 - [License](#sparkles-license)
 
    <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -20,7 +20,7 @@
 
 ![rendering_architecture.png](./user-guides/images/system-diagram.png)
 
-## :sparkles: Usage
+## :sparkles: Prerequisites
 
 Proceed with next steps if your platform meet following prerequisites.
 
@@ -30,6 +30,32 @@ Proceed with next steps if your platform meet following prerequisites.
 Run the following command under `todo-app-backend` directory to install dependencies.
  ```
  npm install
+ ```
+
+## :sparkles: How to Use
+
+Here is the list of tasks available out of the box and run these via `npm run <task>`.
+ ```
+   start             Run the build task and mount index file in dist directory
+   clean             Cleans dist directory
+   lint              Run Code quality operations 
+   build             Perform npm and build
+   watch             Watches file changes in Development mode
+   test              Execute test blocks based on the configurations
+   test:watch        Execute tests in watch mode
+   test:coverage     Executes tests and generate coverage report
+ ```
+
+## :sparkles: Deployment
+Run the following command on browsers to direct access to application resources.
+ ```
+ https://prod-todo-be.brilliant-apps.club
+ ```
+
+## :sparkles: API Documentation
+Run the following command on browsers to see API documentation.
+ ```
+ https://prod-todo-be.brliiant-apps.club/api-docs
  ```
 
 ## :sparkles: Technologies
@@ -45,28 +71,6 @@ Documentation        	| Swagger
 Test Framework | Jest
 Code Quality Tools         	| ES Lint
 Dependency Registries      	| NPM
-
-## :sparkles: How to Use
-
-Here is the list of tasks available out of the box and run these via `npm run <task>`
- ```
-   build             Perform npm and build
-   clean             Cleans dist directory
-   lint              Run Code quality operations 
-   watch             Watches file changes in Development mode
-   start             Run the build task and mount index file in dist directory
- ```
-## :sparkles: API Documentation
-Run the following command on browsers to see API documentation.
- ```
- https://prod-todo-be.brliiant-apps.club/api-docs
- ```
-
-## :sparkles: Deployment
-Run the following command on browsers to direct access to application resources.
- ```
- https://prod-todo-be.brilliant-apps.club
- ```
 
 ## :sparkles: License
 
