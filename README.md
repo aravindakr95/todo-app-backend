@@ -22,7 +22,7 @@
 
 ## :sparkles: Prerequisites
 
-Proceed with next steps if your platform meet following prerequisites.
+Proceed with next steps if your platform meet the following prerequisite.
 
 - Install [Node.js](https://nodejs.org/en/) (14.16.0 LTS) on your device.
 
@@ -62,15 +62,16 @@ Run the following command on browsers to see API documentation.
 
 Usage          	            | Technology
  --------------------------	| --------------------------
-Language        | JavaScript
-Framework     	| Express
-Database | MongoDB
-Authentication | JWT
-Transpiler           	| Babel
-Documentation        	| Swagger
-Test Framework | Jest
-Code Quality Tools         	| ES Lint
-Dependency Registries      	| NPM
+Language              | JavaScript
+Framework     	      | Express
+Database              | MongoDB
+Authentication        | JWT
+Transpiler            | Babel
+API Documentation     | Swagger
+Logger                | Winston
+Test Framework        | Jest
+Code Quality Tools    | ES Lint
+Dependency Registries | NPM
 
 ## :sparkles: License
 
