@@ -47,15 +47,15 @@ Here is the list of tasks available out of the box and run these via `npm run <t
  ```
 
 ## :sparkles: Deployment
-Run the following command on browsers to direct access to application resources.
+Run the following command on browsers with HTTPS to direct access to application resources.
  ```
- https://prod-todo-be.brilliant-apps.club
+ https://prod-todo.brilliant-apps.club/v1/api/
  ```
 
 ## :sparkles: API Documentation
 Run the following command on browsers to see API documentation.
  ```
- https://prod-todo-be.brliiant-apps.club/api-docs
+ https://prod-todo.brliiant-apps.club/api-docs
  ```
 
 ## :sparkles: Technologies
